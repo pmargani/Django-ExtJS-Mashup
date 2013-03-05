@@ -1,0 +1,22 @@
+Here's how to setup mysite.
+
+Source the DSS python environment: source ~/dev/python-env/dss-env/activate/bin
+
+cd ~/dev/
+
+Follow the python tutorial long enought to set up the mysite django project and polls app, w/ functioning model layer.
+
+Then setup the resoruces and httpadapters, urls just enough so that we can use the polls/ urls to get json.
+Make sure you have mysite/urls.py include mysite/polls/urls.py, where all our urls go.  This gets the app namespace correctly.
+
+Then start setting up the extjs like it is in pht:
+   * root url needs to render root.html
+   * then copy basic dir structure at static/js/lib and static/js/pht
+   * make sure settings.py is setup propperly to find all static files in polls app.
+
+
+google 'Extjs geting started' and follow that.  Once you get the hellow world polls.js working, follow the 
+MVC Architecture tutorial.
+
+But then when you get to the models, jsut copy what the pht does.
+
