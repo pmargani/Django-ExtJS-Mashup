@@ -6,6 +6,7 @@ The result of getting the Django and ExtJS startup tutorials to work together.
 Setup
 ====
    * cd to top of repo
+   * cp settings.py.default to settings.py
    * edit settings.py
        * look for # MODIFY
        * paths should point to where you cloned this repo
