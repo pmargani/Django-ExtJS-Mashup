@@ -11,7 +11,7 @@ from django.conf.urls.defaults import patterns, include, url
 #print pollResource
 
 urlpatterns = patterns('',
-    (r'polls/',  include('mysite.polls.urls')), 
+    (r'polls/',  include('polls.urls')), 
     #(r'^static/(?P<path>.*)$', 'django.views.static.serve'
     #, {'document_root': settings.STATIC_POLLS}),
     #url(r'^$',                       root),
