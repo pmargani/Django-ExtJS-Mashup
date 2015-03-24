@@ -15,6 +15,10 @@ Setup
       * cd polls/static/js
       * mkdir lib; cd lib
       * ln -s /home/gbpht/enigma/extern/extjs-4.1.1 extjs
+   * create a symbolic link to doulbe for Django-ExtJS-Mashup dir
+      * apparently you can't use '-' in an import statement!
+      * make a symbolic link to this dir as Django_ExtJS_Mashup
+      * TBF: change name of repo and this dir to not use '-'
 
 Running
 ======
