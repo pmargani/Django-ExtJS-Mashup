@@ -3,10 +3,29 @@ Ext.define('POLLS.view.polls.List' ,{
     alias: 'widget.polllist',
 
     title: 'All Polls',
-    store: 'Choices',
-    //store: 'Polls',
+    //store: 'Choices',
+    store: 'Polls',
     initComponent: function() {
-    /*
+
+        this.dockedItems = [{
+          xtype: 'toolbar',
+          items: [
+            Ext.create('Ext.button.Button', {
+              text: 'Create',
+              action: 'create',
+            }),
+            Ext.create('Ext.button.Button', {
+              text: 'Edit',
+              action: 'edit',
+            }),
+            Ext.create('Ext.button.Button', {
+              text: 'Delete',
+              action: 'delete',
+            }),
+          ],
+        }];
+
+        /*
         this.store = {
             fields: ['name', 'email'],
             data  : [
@@ -22,17 +41,17 @@ Ext.define('POLLS.view.polls.List' ,{
         */
 
         // for choices
+        /*
         this.columns = [
             {header: 'choice', dataIndex: 'choice', flex: 1},
             {header: 'votes', dataIndex: 'votes', flex: 1},
         ];
+        */
 
         // for polls
-        /*
         this.columns = [
             {header: 'question', dataIndex: 'question', flex: 1}
         ] 
-        */
 
         this.callParent(arguments);
     }
