@@ -24,6 +24,9 @@ Ext.define('POLLS.controller.Polls', {
             'polllist toolbar button[action=create]' : {
                 click: this.createPoll
             },
+            'polllist toolbar button[action=edit]' : {
+                click: this.editPoll
+            },
             'polledit button[action=save]' : {
                 click: this.updatePoll
             },
@@ -33,6 +36,17 @@ Ext.define('POLLS.controller.Polls', {
 
     onPanelRendered: function() {
         console.log('The panel was rendered');
+    },
+
+    editPoll: function(button) {
+        console.log('createPoll');
+        var grid = button.up('grid');
+        var selectedRecs = grid.getSelectionModel().getSelection();
+        if (selectedRecs.length >= 1) {
+            var view = Ext.widget('polledit');
+            var record = selectedRecs[0]; 
+            view.down('form').loadRecord(record);   
+        }
     },
 
     createPoll: function(button) {
@@ -62,6 +76,7 @@ Ext.define('POLLS.controller.Polls', {
         poll.set(values);
         poll.save();
         this.getPollsStore().sync();
+        
         win.close();
     },
 });

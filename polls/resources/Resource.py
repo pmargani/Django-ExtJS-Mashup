@@ -16,7 +16,7 @@ class Resource(object):
             return self.read(request, *args, **kws)
 
     def create(self, request, *args, **kws):
-        self.adapter.initFromPost(json.loads(request.raw_post_data))
+        self.adapter.initFromPost(json.loads(request.body))
         items = [self.adapter.jsonDict()]
         return HttpResponse(json.dumps({
                                 'success' : 'ok'
