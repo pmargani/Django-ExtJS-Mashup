@@ -14,7 +14,7 @@ print pollResource
 
 urlpatterns = patterns('',
     (r'^static/(?P<path>.*)$', 'django.views.static.serve'
-    , {'document_root': settings.STATIC_POLLS}),
+    , {'document_root': Django_ExtJS_Mashup.settings.STATIC_POLLS}),
     url(r'^$',                       root),
     url(r'^polls/([^/]+)$',          pollResource.requestHandler), 
     url(r'^polls$',                  pollResource.requestHandler),
