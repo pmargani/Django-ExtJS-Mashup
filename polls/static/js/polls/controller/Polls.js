@@ -1,4 +1,6 @@
 console.log('loading Polls controler');
+Ext.require(['Ext.window.MessageBox']);
+
 Ext.define('POLLS.controller.Polls', {
     extend: 'Ext.app.Controller',
 
@@ -27,6 +29,9 @@ Ext.define('POLLS.controller.Polls', {
             'polllist toolbar button[action=edit]' : {
                 click: this.editPoll
             },
+            'polllist toolbar button[action=delete]' : {
+                click: this.deletePoll
+            },
             'polledit button[action=save]' : {
                 click: this.updatePoll
             },
@@ -36,6 +41,29 @@ Ext.define('POLLS.controller.Polls', {
 
     onPanelRendered: function() {
         console.log('The panel was rendered');
+    },
+
+    deletePoll: function(button) {
+        console.log('deletePoll');
+        var grid = button.up('grid');
+        var selectedRecs = grid.getSelectionModel().getSelection();
+        if (selectedRecs.length >= 1) {
+            var record = selectedRecs[0]; 
+            var store = this.getPollsStore();
+            Ext.Msg.show({
+              title: "Delete Poll",
+              msg: "Are you sure you know what the hell you're doing?",
+              buttons: Ext.Msg.YESNO,
+              icon: Ext.Msg.QUESTION,
+              scope: this,
+              fn: function(id) {
+                if (id == 'yes') {
+                    store.remove([record]);
+                    store.sync();
+                }
+              }
+            });
+        }
     },
 
     editPoll: function(button) {

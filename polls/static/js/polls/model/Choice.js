@@ -6,7 +6,7 @@ Ext.define('POLLS.model.Choice', {
              'votes',
              ],
     proxy: {
-        type: 'ajax',
+        type: 'rest',
         url: '/polls/choices',
         reader: {
             type: 'json',

@@ -11,6 +11,22 @@ class PollResource(Resource):
         self.root    = 'polls'
         self.adapter = PollHttpAdapter()
 
+    def update(self, request, *args, **kws):
+        print "PollResource.update: ", args, kws
+        pid,   = args
+        adapter  = PollHttpAdapter(Poll.objects.get(id = pid))
+        adapter.updateFromPost(json.loads(request.body))
+        return HttpResponse(json.dumps({"success" : "ok"})
+                          , content_type = 'application/json')
+
+    def delete(self, request, *args, **kws):
+        print "PollResource.delete: ", args, kws
+        pid,   = args
+        poll = Poll.objects.get(id = pid)
+        poll.delete()
+        return HttpResponse(json.dumps({"success" : "ok"})
+                          , content_type = 'application/json')
+
     def read(self, request, *args, **kws):
         if len(args) == 1:
             id,   = args

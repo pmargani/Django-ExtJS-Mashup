@@ -5,7 +5,7 @@ Ext.define('POLLS.model.Poll', {
              'pub_date',
              ],
     proxy: {
-        type: 'ajax',
+        type: 'rest',
         url: '/polls/polls',
         timeout: 300000,
         reader: {
