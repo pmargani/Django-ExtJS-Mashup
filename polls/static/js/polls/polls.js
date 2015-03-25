@@ -8,7 +8,8 @@ Ext.application({
     appFolder: 'static/js/polls',
 
     controllers: [
-        'Polls'
+        'Polls',
+        'Choices',
     ],
 
     launch: function() {
@@ -25,7 +26,12 @@ Ext.application({
         });
 
         var choices = this.getController('Polls').getChoicesStore();
-        console.log('done');
+
+        var pollChoices = Ext.create('POLLS.view.choices.ListWindow');
+
+        this.getController('Choices').setPollChoicesWindow(pollChoices);
+
+        console.log('done launch');
     },
     
 });

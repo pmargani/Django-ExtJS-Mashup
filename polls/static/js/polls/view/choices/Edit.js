@@ -1,10 +1,8 @@
-Ext.define('POLLS.view.polls.Edit' ,{
+Ext.define('POLLS.view.choices.Edit' ,{
     extend: 'Ext.window.Window',
-    alias: 'widget.polledit',
+    alias: 'widget.choiceedit',
 
-    title: 'Edit Poll',
-    //store: 'Choices',
-    //store: 'Polls',
+    title: 'Edit Choice',
     layout: 'fit',
     autoShow: true,
     plain: true,
@@ -14,8 +12,14 @@ Ext.define('POLLS.view.polls.Edit' ,{
             xtype: 'form',
             items: [{
                 xtype : 'textfield',
-                name: 'question',
-                fieldLabel: 'Question',
+                name: 'choice',
+                fieldLabel: 'choice',
+                allowBlank: false,
+
+            },{
+                xtype : 'textfield',
+                name: 'votes',
+                fieldLabel: 'Votes',
                 allowBlank: false,
 
             },
@@ -25,9 +29,6 @@ Ext.define('POLLS.view.polls.Edit' ,{
          this.buttons = [{
                text: 'Save',
                action: 'save',
-             }, {
-               text: 'Choices',
-               action: 'choices',
              }, {
                text: 'Close',
                scope: this, 

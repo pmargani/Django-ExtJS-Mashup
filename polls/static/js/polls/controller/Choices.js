@@ -1,7 +1,7 @@
-console.log('loading Polls controler');
+console.log('loading Choices controler');
 Ext.require(['Ext.window.MessageBox']);
 
-Ext.define('POLLS.controller.Polls', {
+Ext.define('POLLS.controller.Choices', {
     extend: 'Ext.app.Controller',
 
     models: [
@@ -14,26 +14,31 @@ Ext.define('POLLS.controller.Polls', {
         'Choices'
     ],
     views: [
-        'polls.List',
+        'choices.List',
+        'choices.ListWindow',
+        'choices.Edit',
         'polls.Edit'
     ],
     init: function() {
-        console.log('Initialized Polls! This happens before the Application launch function is called');
+        console.log('Initialized Choices! This happens before the Application launch function is called');
         this.control({
             'viewport > panel': {
                 render: this.onPanelRendered
             },
-            'polllist toolbar button[action=create]' : {
-                click: this.createPoll
+            'choicelist toolbar button[action=create]' : {
+                click: this.createChoice
             },
-            'polllist toolbar button[action=edit]' : {
-                click: this.editPoll
+            'choicelist toolbar button[action=edit]' : {
+                click: this.editChoice
             },
-            'polllist toolbar button[action=delete]' : {
-                click: this.deletePoll
+            'choicelist toolbar button[action=delete]' : {
+                click: this.deleteChoice
             },
-            'polledit button[action=save]' : {
-                click: this.updatePoll
+            'choiceedit button[action=save]' : {
+                click: this.updateChoice
+            },
+            'polledit button[action=choices]' : {
+                click: this.listChoices
             },
 
         });
@@ -43,15 +48,34 @@ Ext.define('POLLS.controller.Polls', {
         console.log('The panel was rendered');
     },
 
-    deletePoll: function(button) {
-        console.log('deletePoll');
+    setPollChoicesWindow: function(win) {
+        this.pollChoicesWindow = win;
+    },
+
+    listChoices: function(button) {
+        console.log('listChoices');
+        var win      = button.up('window'),
+            form     = win.down('form'),
+            poll   = form.getRecord();
+        console.log(poll);
+
+        var values   = form.getValues();
+        console.log(values);
+        var pid = poll.get('id');
+        //this.pollChoicesWindow.down('choiceslist').setPollId(pid);
+        this.pollChoicesWindow.show();
+
+    },
+
+    deleteChoice: function(button) {
+        console.log('deleteChoice');
         var grid = button.up('grid');
         var selectedRecs = grid.getSelectionModel().getSelection();
         if (selectedRecs.length >= 1) {
             var record = selectedRecs[0]; 
-            var store = this.getPollsStore();
+            var store = this.getChoicesStore();
             Ext.Msg.show({
-              title: "Delete Poll",
+              title: "Delete Choice",
               msg: "Are you sure you know what the hell you're doing?",
               buttons: Ext.Msg.YESNO,
               icon: Ext.Msg.QUESTION,
@@ -66,28 +90,28 @@ Ext.define('POLLS.controller.Polls', {
         }
     },
 
-    editPoll: function(button) {
-        console.log('editPoll');
+    editChoice: function(button) {
+        console.log('createChoice');
         var grid = button.up('grid');
         var selectedRecs = grid.getSelectionModel().getSelection();
         if (selectedRecs.length >= 1) {
-            var view = Ext.widget('polledit');
+            var view = Ext.widget('choiceedit');
             var record = selectedRecs[0]; 
             view.down('form').loadRecord(record);   
         }
     },
 
-    createPoll: function(button) {
-        console.log('createPoll');
+    createChoice: function(button) {
+        console.log('createChoice');
         //var grid = button.up('grid')
-        var poll = Ext.create('POLLS.model.Poll');
-        var view = Ext.widget('polledit');
+        var poll = Ext.create('POLLS.model.Choice');
+        var view = Ext.widget('choiceedit');
         view.down('form').loadRecord(poll);
         console.log(poll);
     },
 
-    updatePoll: function(button) {
-        console.log('updatePoll');
+    updateChoice: function(button) {
+        console.log('updateChoice');
         var win      = button.up('window'),
             form     = win.down('form'),
             poll   = form.getRecord();
