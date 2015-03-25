@@ -2,6 +2,7 @@ Ext.define('POLLS.model.Choice', {
     extend: 'Ext.data.Model',
     fields: ['id',
              'poll',
+             'poll_id',
              'choice',
              'votes',
              ],

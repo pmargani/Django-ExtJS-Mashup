@@ -11,6 +11,22 @@ class ChoiceResource(Resource):
         self.root    = 'choices'
         self.adapter = ChoiceHttpAdapter()
 
+    def update(self, request, *args, **kws):
+        print "Resource.update: ", args, kws
+        pid,   = args
+        adapter  = ChoiceHttpAdapter(Choice.objects.get(id = pid))
+        adapter.updateFromPost(json.loads(request.body))
+        return HttpResponse(json.dumps({"success" : "ok"})
+                          , content_type = 'application/json')
+
+    def delete(self, request, *args, **kws):
+        print "Resource.delete: ", args, kws
+        pid,   = args
+        choice = Choice.objects.get(id = pid)
+        choice.delete()
+        return HttpResponse(json.dumps({"success" : "ok"})
+                          , content_type = 'application/json')
+
     def read(self, request, *args, **kws):
         if len(args) == 1:
             id,   = args

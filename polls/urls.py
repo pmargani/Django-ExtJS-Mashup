@@ -20,6 +20,7 @@ urlpatterns = patterns('',
     url(r'^polls$',                  pollResource.requestHandler),
     url(r'^choices/([^/]+)$',        choiceResource.requestHandler), 
     url(r'^choices$',                choiceResource.requestHandler),
+    url(r'^polls/([^/]+)/choices$',  pollChoices), 
     # Examples:
     # url(r'^$', 'mysite.views.home', name='home'),
     # url(r'^mysite/', include('mysite.foo.urls')),

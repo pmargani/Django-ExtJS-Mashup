@@ -50,7 +50,8 @@ Ext.define('POLLS.view.polls.List' ,{
 
         // for polls
         this.columns = [
-            {header: 'question', dataIndex: 'question', flex: 1}
+            {header: 'ID', dataIndex: 'id', flex: 1},
+            {header: 'Question', dataIndex: 'question', flex: 1},
         ] 
 
         this.callParent(arguments);

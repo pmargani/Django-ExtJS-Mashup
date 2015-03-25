@@ -62,8 +62,11 @@ Ext.define('POLLS.controller.Choices', {
         var values   = form.getValues();
         console.log(values);
         var pid = poll.get('id');
-        //this.pollChoicesWindow.down('choiceslist').setPollId(pid);
+        console.log(pid);
+        console.log(this.pollChoicesWindow);
+        this.pollChoicesWindow.down('choicelist').setPoll(pid);
         this.pollChoicesWindow.show();
+        console.log('listChoices done.');
 
     },
 
@@ -91,7 +94,7 @@ Ext.define('POLLS.controller.Choices', {
     },
 
     editChoice: function(button) {
-        console.log('createChoice');
+        console.log('editChoice');
         var grid = button.up('grid');
         var selectedRecs = grid.getSelectionModel().getSelection();
         if (selectedRecs.length >= 1) {
@@ -103,19 +106,28 @@ Ext.define('POLLS.controller.Choices', {
 
     createChoice: function(button) {
         console.log('createChoice');
-        //var grid = button.up('grid')
-        var poll = Ext.create('POLLS.model.Choice');
+        // what is the id of the poll we are creating this 
+        // choice for?
+        var grid = button.up('grid')
+        console.log('pollcombo.getValue: ');
+        console.log(grid.pollCombo.getValue());
+        var pollId = grid.pollCombo.getValue();
+
+        // init this poll's choice
+        var choice = Ext.create('POLLS.model.Choice');
+        choice.set('poll_id', pollId);
+
         var view = Ext.widget('choiceedit');
-        view.down('form').loadRecord(poll);
-        console.log(poll);
+        view.down('form').loadRecord(choice);
+        console.log(choice);
     },
 
     updateChoice: function(button) {
         console.log('updateChoice');
         var win      = button.up('window'),
             form     = win.down('form'),
-            poll   = form.getRecord();
-        console.log(poll);
+            choice   = form.getRecord();
+        console.log(choice);
 
         var values   = form.getValues();
 
@@ -125,9 +137,10 @@ Ext.define('POLLS.controller.Choices', {
             return;
         }
 
-        poll.set(values);
-        poll.save();
-        this.getPollsStore().sync();
+        choice.set(values);
+        choice.save();
+        //this.getPollsStore().sync();
+        this.getChoicesStore().sync();
         
         win.close();
     },
