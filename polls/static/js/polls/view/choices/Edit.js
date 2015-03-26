@@ -17,10 +17,11 @@ Ext.define('POLLS.view.choices.Edit' ,{
                 allowBlank: false,
 
             },{
-                xtype : 'textfield',
+                xtype : 'numberfield',
                 name: 'votes',
                 fieldLabel: 'Votes',
                 allowBlank: false,
+                minValue: 0,
 
             },
             ],

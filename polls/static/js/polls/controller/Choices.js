@@ -138,9 +138,14 @@ Ext.define('POLLS.controller.Choices', {
         }
 
         choice.set(values);
-        choice.save();
-        //this.getPollsStore().sync();
-        this.getChoicesStore().sync();
+
+        // Is this a new choice?
+        if (choice.phantom){
+            choice.save();
+            this.getChoicesStore().insert(0, [choice]);
+        } else {
+            this.getChoicesStore().sync();
+        }         
         
         win.close();
     },

@@ -53,7 +53,15 @@ Ext.define('POLLS.view.choices.List' ,{
     },
 
     setPoll: function(id) {
-        var store = this.getStore('Poll');
+        var store = this.getStore('Choice');
+        // reset the filter
+                var store = this.getStore('Sessions');
+        if (store.isFiltered()){
+            store.clearFilter();
+        }
+        store.filter('poll_id', id);
+        store.sync();
+        /*
         store.setProxy({
             type: 'rest',
             url: '/polls/polls/'+ id + '/choices',
@@ -64,7 +72,9 @@ Ext.define('POLLS.view.choices.List' ,{
                 successProperty: 'success'
             }
         });
+
         store.load();
+        */
         this.pollCombo.setValue(id);
 
     },

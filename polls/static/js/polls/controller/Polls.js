@@ -102,8 +102,14 @@ Ext.define('POLLS.controller.Polls', {
         }
 
         poll.set(values);
-        poll.save();
-        this.getPollsStore().sync();
+
+        // Is this a new poll?
+        if (poll.phantom){
+            poll.save();
+            this.getPollsStore().insert(0, [poll]);
+        } else {
+            this.getPollsStore().sync();
+        }        
         
         win.close();
     },
